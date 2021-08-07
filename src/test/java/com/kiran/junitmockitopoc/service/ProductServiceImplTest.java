@@ -7,6 +7,7 @@ import com.kiran.junitmockitopoc.enums.Category;
 import com.kiran.junitmockitopoc.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -42,6 +43,8 @@ class ProductServiceImplTest {
                 () -> assertEquals(product.getName(), response.getName(), "Product name is incorrect"),
                 () -> assertEquals(product.getCategory(), response.getCategory(), "Category is incorrect"),
                 () -> assertEquals(productId, response.getId(), "Product Id is incorrect"));
-
+        Mockito.verify(productAdapter,Mockito.times(1)).toProductEntity(ArgumentMatchers.any(Product.class));
+        Mockito.verify(productRepository,Mockito.times(1)).save(ArgumentMatchers.any(ProductEntity.class));
     }
+
 }
