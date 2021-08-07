@@ -14,8 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceImplTest {
@@ -39,9 +38,10 @@ class ProductServiceImplTest {
         Mockito.when(productAdapter.toProductEntity(product)).thenReturn(productEntity);
         Mockito.when(productRepository.save(productEntity)).thenReturn(productEntity);
         ProductEntity response = productService.saveProduct(product);
-        assertNotNull(response);
-        assertEquals(product.getName(), response.getName());
-        assertEquals(product.getCategory(), response.getCategory());
-        assertEquals(productId, response.getId());
+        assertAll("Test save product service", () -> assertNotNull(response),
+                () -> assertEquals(product.getName(), response.getName()),
+                () -> assertEquals(product.getCategory(), response.getCategory()),
+                () -> assertEquals(productId, response.getId()));
+
     }
 }
