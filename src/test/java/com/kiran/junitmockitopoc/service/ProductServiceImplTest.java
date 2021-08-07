@@ -38,10 +38,10 @@ class ProductServiceImplTest {
         Mockito.when(productAdapter.toProductEntity(product)).thenReturn(productEntity);
         Mockito.when(productRepository.save(productEntity)).thenReturn(productEntity);
         ProductEntity response = productService.saveProduct(product);
-        assertAll("Test save product service", () -> assertNotNull(response),
-                () -> assertEquals(product.getName(), response.getName()),
-                () -> assertEquals(product.getCategory(), response.getCategory()),
-                () -> assertEquals(productId, response.getId()));
+        assertAll(() -> assertNotNull(response),
+                () -> assertEquals(product.getName(), response.getName(), "Product name is incorrect"),
+                () -> assertEquals(product.getCategory(), response.getCategory(), "Category is incorrect"),
+                () -> assertEquals(productId, response.getId(), "Product Id is incorrect"));
 
     }
 }
