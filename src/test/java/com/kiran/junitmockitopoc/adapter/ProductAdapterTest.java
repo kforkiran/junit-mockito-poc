@@ -17,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * @author kiran
  */
 class ProductAdapterTest {
+
     private ProductAdapter productAdapter;
 
     @BeforeEach
