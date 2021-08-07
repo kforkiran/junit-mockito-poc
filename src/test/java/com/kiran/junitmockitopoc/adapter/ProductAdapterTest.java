@@ -13,6 +13,9 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+/**
+ * @author kiran
+ */
 class ProductAdapterTest {
     private ProductAdapter productAdapter;
 
@@ -29,13 +32,23 @@ class ProductAdapterTest {
     @DisplayName("ProductEntity to ProductDTO Conversion")
     void toProductDTO() {
         final UUID productId = UUID.randomUUID();
-        ProductEntity productEntity = new ProductEntity(productId, "Pen", Category.CLOTHING);
+        ProductEntity productEntity = new ProductEntity(productId, "Pen", Category.EDUCATION);
         Product product = productAdapter.toProductDTO(productEntity);
         assertNotNull(product);
-        assertEquals(product.getId(), productEntity.getId());
+        assertEquals(productId, product.getId());
+        assertEquals(Category.EDUCATION, product.getCategory());
+        assertEquals("Pen", product.getName());
     }
 
     @Test
+    @DisplayName("Product to ProductEntity Conversion")
     void toProductEntity() {
+        final UUID productId = UUID.randomUUID();
+        Product product = new Product(productId, "Pen", Category.EDUCATION);
+        ProductEntity productEntity = productAdapter.toProductEntity(product);
+        assertNotNull(productEntity);
+        assertEquals(productId, productEntity.getId());
+        assertEquals("Pen", productEntity.getName());
+        assertEquals(Category.EDUCATION, productEntity.getCategory());
     }
 }
